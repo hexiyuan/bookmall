@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="core.dao.BookDao">
+
+
+	<insert id="addBook" parameterType="core.domain.Book">
+		insert into
+		book(id,name,price,author,image,description,category_id)
+		values(#{id},#{name},#{price},#{author},#{image},#{description},#{category.id})
+	</insert>
+
+
+	<select id="getBookByAll" resultType="core.domain.Book">
+		select * from `book`
+	</select>
+
+
+	<select id="findBookById" parameterType="String" resultType="core.domain.Book">
+		select * from `book` 
+		<where>
+			<if test="id != null and id !=''">
+				id=#{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getPageTotalRecord" parameterType="java.lang.String" resultType="Integer">
+		select count(*) from book 
+		<where>
+			<if test="id != null and id !='' and id !='all'">
+				category_id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="pageQuery" resultType="core.domain.Book">
+		select * from book
+		<where>
+			<if test="id != null and id != ''and id !='all'">
+				category_id=#{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+			limit #{startindex,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteBookById" parameterType="java.lang.String">
+	<if test="id != null and id !=''">
+		delete from book where id=#{id,jdbcType=VARCHAR}
+	</if>
+	
+	</delete>
+
+
+</mapper>

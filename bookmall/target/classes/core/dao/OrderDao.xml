@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="core.dao.OrderDao">
+
+	<resultMap type="core.domain.Order" id="allOreder">
+		<id column="id" property="id" />
+		<result column="ordertime" property="ordertime" />
+		<result column="state" property="state" />
+		<result column="price" property="price" />
+		<association javaType="core.domain.User" property="user">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+			<result column="password" property="password" />
+			<result column="phone" property="phone" />
+			<result column="cellphone" property="cellphone" />
+			<result column="email" property="email" />
+			<result column="address" property="address" />
+		</association>
+	</resultMap>
+
+
+	<resultMap type="core.domain.Order" id="findById" extends="allOreder">
+
+		<collection property="orderitems" ofType="core.domain.OrderItem">
+			<id column="id" property="id" />
+			<result column="quantity" property="quantity" />
+			<result column="price" property="price" />
+			<result column="order_id" property="orderId" />
+			<association property="book" javaType="core.domain.Book">
+				<id column="id" property="id" />
+				<result column="name" property="name" />
+				<result column="price" property="price" />
+				<result column="author" property="author" />
+				<result column="image" property="image" />
+				<result column="description" property="description" />
+			</association>
+		</collection>
+	</resultMap>
+
+
+	<insert id="addOrder" parameterType="core.domain.Order">
+		insert into
+		orders
+		values(#{id},#{ordertime},#{state},#{price},#{user.id})
+		
+	</insert>
+
+
+	<select id="findOrderById" parameterType="String" resultMap="findById">
+		select * from orders, user,orderitem,book
+		<where>
+			<if test="id != null and id != ''">
+				orderitem.order_id=#{id}
+			</if>
+			and
+			user.id=orders.user_id
+			and
+			orderitem.order_id=orders.id
+			and
+			book.id=orderitem.book_id;
+		</where> 
+
+	</select>
+
+	<select id="getAllOrder" parameterType="Boolean" resultMap="allOreder">
+		select * from orders inner join user on orders.user_id=user.id 
+		<where>
+			<if test="state != null and state != ''">
+				state=#{state}
+			</if>
+		</where>
+	</select>
+
+</mapper>
