@@ -49,27 +49,38 @@
 
 
 	<select id="findOrderById" parameterType="String" resultMap="findById">
-		select * from orders, user,orderitem,book
+	select * from orders, user,orderitem,book
+	<where>
+		<if test="id != null and id != ''">
+			orderitem.order_id=#{id}
+		</if>
+		and
+		user.id=orders.user_id
+		and
+		orderitem.order_id=orders.id
+		and
+		book.id=orderitem.book_id;
+	</where>
+	</select>
+
+	<!-- 根据orders的ID查询orders与user两张表 -->
+	<select id="findOrderById_2User" parameterType="String" resultMap="allOreder">
+		select * from orders, user
 		<where>
 			<if test="id != null and id != ''">
-				orderitem.order_id=#{id}
+				orders.id=#{id}
 			</if>
 			and
 			user.id=orders.user_id
-			and
-			orderitem.order_id=orders.id
-			and
-			book.id=orderitem.book_id;
-		</where> 
-
+		</where>
 	</select>
 
 	<select id="getAllOrder" parameterType="Boolean" resultMap="allOreder">
-		select * from orders inner join user on orders.user_id=user.id 
+		select * from orders,user 
 		<where>
-			<if test="state != null and state != ''">
-				state=#{state}
-			</if>
+			orders.state=#{state}
+			and
+			orders.user_id=user.id 
 		</where>
 	</select>
 

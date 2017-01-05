@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="core.dao.OrderItemDao">
+
+	<resultMap type="core.domain.OrderItem" id="findBook">
+		<id column="id" property="id" />
+		<result column="quantity" property="quantity" />
+		<result column="order_id" property="orderId" />
+		<result column="price" property="price" />
+		<association property="book" javaType="core.domain.Book">
+				<id column="id" property="id" />
+				<result column="name" property="name" />
+				<result column="price" property="price" />
+				<result column="author" property="author" />
+				<result column="image" property="image" />
+				<result column="description" property="description" />
+			</association>
+	</resultMap>
+
+
+	<!-- 根据orderitme中的order_id来查询orderitem表与book表 -->
+	<select id="findOrderItem_2Book" parameterType="String" resultMap="findBook">
+		select * from orderitem, book
+		<where>
+			<if test="id != null and id != ''">
+				orderitem.order_id=#{id}
+			</if>
+			and
+			orderitem.book_id=book.id
+		</where>
+	</select>
+
+</mapper>

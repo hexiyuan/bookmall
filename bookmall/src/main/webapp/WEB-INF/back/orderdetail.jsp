@@ -18,18 +18,17 @@
 			<td>数量</td>
 			<td>应收货款</td>
 		</tr>
-
-		<c:forEach var="od" items="${oItem}">
-			<tr>
-				<td>${od.price}</td>
-				<td>${od.price }</td>
-				<td>${od.quantity }</td>
-				<td>${od.price }元</td>
-			</tr>
+		<c:forEach var="order" items="${order}">
+		<tr>
+			<td>${order.book.name}</td>
+			<td>${order.book.price }</td>
+			<td>${order.quantity }</td>
+			<td>${order.price }元</td>
+		</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="2">总计应收货款</td>
-			<td colspan="2">${order.price }元</td>
+			<td colspan="3">总计应收货款</td>
+			<td colspan="2">${od.price }元</td>
 		</tr>
 	</table>
 	<br />
@@ -43,12 +42,18 @@
 			<td>地址</td>
 			<td>邮箱</td>
 		</tr>
-
+		<tr>
+			<td>${od.user.username}</td>
+			<td>${od.user.phone }</td>
+			<td>${od.user.cellphone }</td>
+			<td>${od.user.address }</td>
+			<td>${od.user.email }</td>
+		</tr>
 		<tr>
 
 		</tr>
 	</table>
 	<br />
-	<a href="${pageContext.request.contextPath }/#">确认发货</a>
+	<a href="${pageContext.request.contextPath }/back/orderToSure.back?id=${od.id }&state=1">确认发货</a>
 </body>
 </html>

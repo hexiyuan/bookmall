@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,7 +117,9 @@ public class BusinessServiceImpl implements BusinessService {
 	public List<Order> getAllOrder(boolean state) throws Exception {
 		return orderDao.getAllOrder(state);
 	}
-
+	public Order findOrderById_2User(String id) throws Exception {
+		return orderDao.findOrderById_2User(id);
+	}
 	public void updateOrder(String id, boolean state) throws Exception {
 		orderDao.updateOrder(id, state);
 	}
@@ -143,6 +144,12 @@ public class BusinessServiceImpl implements BusinessService {
 	public void addOrderItem(OrderItem orderitem) throws Exception {
 		orderItemDao.addOrderItem(orderitem);
 	}
+
+	public List<OrderItem> findOrderItem_2Book(String id) throws Exception {
+		return orderItemDao.findOrderItem_2Book(id);
+	}
+
+
 
 
 

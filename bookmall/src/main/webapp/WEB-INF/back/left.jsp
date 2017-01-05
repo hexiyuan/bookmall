@@ -45,8 +45,8 @@
     	<li>
     		<a href="#" onclick="test(children[0])">订单管理
 	    		<div class="dc">
-	    			<a href="${pageContext.request.contextPath }/back/orderToResolve.back?state=false"  target="right">待处理订单</a><br/>
-	    			<a href="${pageContext.request.contextPath }/back/orderToResolve.back?state=true"  target="right">已发货订单</a><br/>
+	    			<a href="${pageContext.request.contextPath }/back/orderToResolve.back?state=0"  target="right">待处理订单</a><br/>
+	    			<a href="${pageContext.request.contextPath }/back/orderToResolve.back?state=1"  target="right">已发货订单</a><br/>
 	    		</div>
     		</a>
     	</li>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import core.domain.Book;
 import core.domain.Category;
 import core.domain.Order;
+import core.domain.OrderItem;
 import core.service.BusinessService;
 
 /**
@@ -97,7 +98,7 @@ public class BackGuilderController {
 		return "listbook";
 	}
 
-	// 待处理订单 + 待发货订单
+	// 查询 待处理订单 + 待发货订单
 	@RequestMapping(value = "/orderToResolve", method = RequestMethod.GET)
 	public String orderToResolve(Model model, boolean state) throws Exception {
 		try {
@@ -108,14 +109,31 @@ public class BackGuilderController {
 		}
 		return "listorder";
 	}
+	
+	// 设置订单的状态
+	@RequestMapping(value = "/orderToSure", method = RequestMethod.GET)
+	public String orderToSure(Model model, String id,boolean state) throws Exception {
+		try {
+			//根据传过来的boolean值与订单的id来修改订单的状态
+			
+			BusinessServiceImpl.updateOrder(id, state);;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "listorder";
+	}
 
 	// 查看订单明细 orderdetail
-	//传过来的id为订单orders的id
+	//参数为订单orders的id
 	@RequestMapping(value = "/orderdetail", method = RequestMethod.GET)
 	public String orderdetail(Model model, String id) throws Exception {
 		String message = "";
 		try {
-			List<Order> order = BusinessServiceImpl.findOrderById(id);
+			Order od = BusinessServiceImpl.findOrderById_2User(id);
+			model.addAttribute("od", od);
+			
+			List<OrderItem> order = BusinessServiceImpl.findOrderItem_2Book(id);
 			model.addAttribute("order", order);
 			
 		} catch (Exception e) {
@@ -125,6 +143,8 @@ public class BackGuilderController {
 		return "orderdetail";
 	}
 
+	
+	
 	// 根据id来删除图书
 	@RequestMapping(value = "/deletebook", method = RequestMethod.GET)
 	public String deleteBook(Model model, String id) throws Exception {

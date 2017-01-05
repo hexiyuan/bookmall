@@ -23,6 +23,14 @@ public class OrderTest {
 
 
 	@Test
+	public void testFindOrderById_2User() throws Exception{
+		OrderDao orderdao = (OrderDao) context.getBean("orderDao");
+		String id = "d84bfd47-1e4d-4a0a-907f-d358415990b9";
+		Order od = orderdao.findOrderById_2User(id);
+		System.out.println(od.toString());
+	}
+	
+	@Test
 	public void getAllOrder() throws Exception{
 		OrderDao orderdao = (OrderDao) context.getBean("orderDao");
 		List<Order> order = orderdao.getAllOrder(false);
