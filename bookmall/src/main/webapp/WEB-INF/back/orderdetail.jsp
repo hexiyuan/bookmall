@@ -21,7 +21,7 @@
 		<c:forEach var="order" items="${order}">
 		<tr>
 			<td>${order.book.name}</td>
-			<td>${order.book.price }</td>
+			<td>${order.book.price / order.quantity }</td>
 			<td>${order.quantity }</td>
 			<td>${order.price }元</td>
 		</tr>
