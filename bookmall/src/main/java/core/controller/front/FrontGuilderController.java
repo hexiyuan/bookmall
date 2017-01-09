@@ -1,6 +1,8 @@
 package core.controller.front;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import core.domain.Book;
 import core.domain.Cart;
 import core.domain.Category;
+import core.domain.OrderItem;
 import core.domain.PageBean;
 import core.domain.User;
 import core.service.BusinessService;
@@ -92,6 +95,38 @@ public class FrontGuilderController {
 		}
 		return "message";
 	}
+	
+	
+	//根据用户user的ID来查看订单详情况
+	@RequestMapping(value = "/lookorderdetail")
+	public String lookorderdetail(Model model, HttpSession session) throws Exception {
+		// 获得session中的用户信息，判断使用是否已经登陆
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("message", "请先登陆！");
+			return "message";
+		}
+		//用户已经登陆，执行查询操作
+		String id = user.getId();
+		//根据用户user的id查询出订单order的id
+		List<String> st = BusinessServiceImpl.genOrdersIdByUser(id);
+		String message = "";
+		try {
+			Map<Integer,List<OrderItem>> map = new HashMap<>();
+			for (int i = 0; i <st.size(); i++) {
+				List<OrderItem> orderitem = BusinessServiceImpl.findOrderItem_2Book(st.get(i));
+				 map.put(i,orderitem);
+			}
+			System.out.println(map);
+			model.addAttribute("orderitem", map);
+			
+		} catch (Exception e) {
+			model.addAttribute("查看失败！", message);
+			return "message";
+		}
+		return "orderdetail";
+	}
+	
 
 	// 执行用户注册功能
 	@RequestMapping(value = "/registerFrom", method = RequestMethod.POST)

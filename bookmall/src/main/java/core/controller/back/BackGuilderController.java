@@ -133,8 +133,11 @@ public class BackGuilderController {
 			Order od = BusinessServiceImpl.findOrderById_2User(id);
 			model.addAttribute("od", od);
 			
-			List<OrderItem> order = BusinessServiceImpl.findOrderItem_2Book(id);
-			model.addAttribute("order", order);
+			List<OrderItem> orderitem = BusinessServiceImpl.findOrderItem_2Book(id);
+			for (int i = 0; i < orderitem.size(); i++) {
+				System.out.println(orderitem.get(i).toString());
+			}
+			model.addAttribute("orderitem", orderitem);
 			
 		} catch (Exception e) {
 			model.addAttribute("查看失败！", message);

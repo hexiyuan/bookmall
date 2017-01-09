@@ -1,5 +1,7 @@
 package core.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -15,6 +17,10 @@ public interface UserDao {
 
 	@Select(value = "select * from user where id=#{id}")
 	public User findUserById(String id) throws Exception;
+	
+	//根据用户user的id获得订单orders的id
+	@Select(value = "select orders.id from user,orders where user.id=#{id} and orders.user_id=user.id")
+	public List<String> genOrdersIdByUser(@Param("id") String id) throws Exception;
 
 	/*
 	 * 多参数查询需要在其中使用@Param()注解来协助。

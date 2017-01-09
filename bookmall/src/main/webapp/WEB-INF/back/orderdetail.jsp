@@ -18,12 +18,12 @@
 			<td>数量</td>
 			<td>应收货款</td>
 		</tr>
-		<c:forEach var="order" items="${order}">
+		<c:forEach var="orderitem" items="${orderitem}">
 		<tr>
-			<td>${order.book.name}</td>
-			<td>${order.book.price / order.quantity }</td>
-			<td>${order.quantity }</td>
-			<td>${order.price }元</td>
+			<td>${orderitem.book.name}</td>
+			<td>${orderitem.book.price / orderitem.quantity }</td>
+			<td>${orderitem.quantity }</td>
+			<td>${orderitem.price }元</td>
 		</tr>
 		</c:forEach>
 		<tr>

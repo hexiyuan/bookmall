@@ -5,7 +5,7 @@
 <div style="margin-left: 40%;float: left">
 	<a href="${pageContext.request.contextPath }/front/index.front">首页</a>
 	<a href="${pageContext.request.contextPath }/front/listcart.front">查看购物车</a>
-	<a href="#">查看自己的订单</a>
+	<a href="${pageContext.request.contextPath }/front/lookorderdetail.front">查看自己的订单</a>
 </div>
  	
 <div style="float: right;">

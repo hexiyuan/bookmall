@@ -149,6 +149,11 @@ public class BusinessServiceImpl implements BusinessService {
 		return orderItemDao.findOrderItem_2Book(id);
 	}
 
+	@Override
+	public List<String> genOrdersIdByUser(String id) throws Exception {
+		return userDao.genOrdersIdByUser(id);
+	}
+
 
 
 

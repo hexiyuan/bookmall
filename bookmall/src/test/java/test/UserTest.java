@@ -1,6 +1,7 @@
 package test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import core.dao.OrderDao;
+import core.dao.UserDao;
 import core.domain.Order;
 import core.domain.User;
 
@@ -35,8 +37,13 @@ public class UserTest {
 	}
 
 	@Test
-	public void daoFindUser() {
-
+	public void genOrdersIdByUser() throws Exception {
+		UserDao userDao = (UserDao) context.getBean("userDao");
+		String id = "d743db26-6c66-45c2-a1ed-f7ac495e8411";
+		List<String> st = userDao.genOrdersIdByUser(id);
+		for (int i = 0; i < st.size(); i++) {
+			System.out.println(st.get(i));
+		}
 	}
 
 }

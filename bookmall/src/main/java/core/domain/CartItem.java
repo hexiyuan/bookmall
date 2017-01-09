@@ -19,10 +19,10 @@ public class CartItem {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
-		this.price = this.book.getPrice()*quantity;
 		this.quantity = quantity;
 	}
 	public double getPrice() {
+		this.price = this.book.getPrice()*quantity;
 		return price;
 	}
 }

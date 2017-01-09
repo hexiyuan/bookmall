@@ -7,6 +7,7 @@ public class OrderItem {
 	private double price;  //总价
 	
 	private String orderId; //该属性用来记住 orderitem表中的外键order_id
+	
 	private Book book;   
 	
 	public String getId() {

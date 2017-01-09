@@ -45,6 +45,8 @@ public interface BusinessService {
 	public User findUser(String username, String password) throws Exception;
 
 	public User findUserById(String id) throws Exception;
+	
+	public List<String> genOrdersIdByUser(String id) throws Exception;
 
 	// order订单操作
 	void saveOrder(Cart cart, User user) throws Exception;

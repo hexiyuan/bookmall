@@ -35,7 +35,7 @@ public class OrederItemTest {
 		@Test
 		public void testFindOrderItem_2Book() throws Exception{
 			OrderItemDao orderItem = (OrderItemDao) context.getBean("orderItemDao");
-			String id = "d84bfd47-1e4d-4a0a-907f-d358415990b9";
+			String id = "e90d15e7-ca97-406c-a772-51473e974729";
 			List<OrderItem> ls = orderItem.findOrderItem_2Book(id);
 			for (int i = 0; i < ls.size(); i++) {
 				System.out.println(ls.get(i).toString());
